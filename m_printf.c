@@ -38,8 +38,21 @@ static int m_puthex(void (*fp)(int), int n)
         n /= 16;
     }
 
-    for (int i = count; i >= 0; --i) {
+    for (int i = count - 1; i >= 0; --i) {
         fp(tmp[i]);
+    }
+
+    return count;
+}
+
+static int m_putstr(void (*fp)(int), char *pc)
+{
+    int count = 0;
+
+    while (*pc) {
+        fp(*pc);
+        count++;
+        pc++;
     }
 
     return count;
@@ -61,6 +74,9 @@ int m_printf(void (*fp)(int), char const * format, ...)
                     break;
                 case 'd':
                     count += m_putnum(fp, va_arg(args, int));
+                    break;
+                case 's':
+                    count += m_putstr(fp, va_arg(args, char *));
                     break;
                 case 'c':
                 case '%':
