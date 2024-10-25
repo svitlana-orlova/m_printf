@@ -31,6 +31,15 @@ int main(void)
     }
 
     {
+        int const i = 0;
+        dec_buf_iter = 0;
+        assert(m_printf(put_decbuf, "%x", i) == 1);
+        assert(strcmp(dec_buf, "0") == 0);
+        m_printf(m_putc, "[OK] zro_hex test: \"%s\"\n", dec_buf);
+
+    }
+
+    {
         int const i = 127;
         dec_buf_iter = 0;
         assert(m_printf(put_decbuf, "0x%d", i) == 5);

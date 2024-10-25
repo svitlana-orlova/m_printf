@@ -25,6 +25,11 @@ static int m_puthex(void (*fp)(int), int n)
     int count = 0;
     int tmp[16] = { 0 };
 
+    if (n == 0) {
+        fp('0');
+        return 1;
+    }
+
     while (n != 0) {
         int const rem = n % 16;
 
